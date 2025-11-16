@@ -1,0 +1,532 @@
+definitions:
+  api.ContractError:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  pullrequests.CreatePRParams:
+    properties:
+      author_id:
+        type: string
+      pull_request_id:
+        type: string
+      pull_request_name:
+        type: string
+    type: object
+  pullrequests.CreatePRResult:
+    properties:
+      pr:
+        $ref: '#/definitions/pullrequests.CreatePRResultPR'
+    type: object
+  pullrequests.CreatePRResultPR:
+    properties:
+      assigned_reviewers:
+        items:
+          type: string
+        type: array
+      author_id:
+        type: string
+      pull_request_id:
+        type: string
+      pull_request_name:
+        type: string
+      status:
+        type: string
+    type: object
+  pullrequests.MergePRParams:
+    properties:
+      pull_request_id:
+        type: string
+    type: object
+  pullrequests.MergePRResult:
+    properties:
+      pr:
+        $ref: '#/definitions/pullrequests.MergePRResultPR'
+    type: object
+  pullrequests.MergePRResultPR:
+    properties:
+      assigned_reviewers:
+        items:
+          type: string
+        type: array
+      author_id:
+        type: string
+      mergedAt:
+        type: string
+      pull_request_id:
+        type: string
+      pull_request_name:
+        type: string
+      status:
+        type: string
+    type: object
+  pullrequests.ReassignPRParams:
+    properties:
+      old_reviewer_id:
+        type: string
+      pull_request_id:
+        type: string
+    type: object
+  pullrequests.ReassignPRResult:
+    properties:
+      pr:
+        $ref: '#/definitions/pullrequests.ReassignPRResultPR'
+      replacedBy:
+        type: string
+    type: object
+  pullrequests.ReassignPRResultPR:
+    properties:
+      assigned_reviewers:
+        items:
+          type: string
+        type: array
+      author_id:
+        type: string
+      pull_request_id:
+        type: string
+      pull_request_name:
+        type: string
+      status:
+        type: string
+    type: object
+  statistics.GetStatisticsResult:
+    properties:
+      merged_prs:
+        type: integer
+      open_prs:
+        type: integer
+      reviewer_load:
+        items:
+          $ref: '#/definitions/statistics.ReviewerLoadStats'
+        type: array
+      team_stats:
+        items:
+          $ref: '#/definitions/statistics.TeamStatistics'
+        type: array
+      total_prs:
+        type: integer
+      user_assignments:
+        items:
+          $ref: '#/definitions/statistics.UserAssignmentStats'
+        type: array
+    type: object
+  statistics.ReviewerLoadStats:
+    properties:
+      load:
+        type: integer
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  statistics.TeamStatistics:
+    properties:
+      open_prs:
+        type: integer
+      team_name:
+        type: string
+      total_prs:
+        type: integer
+      total_reviews:
+        type: integer
+    type: object
+  statistics.UserAssignmentStats:
+    properties:
+      active_assignments:
+        type: integer
+      assigned_as_reviewer:
+        type: integer
+      team_name:
+        type: string
+      total_prs:
+        type: integer
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  teams.AddTeamParams:
+    properties:
+      members:
+        items:
+          $ref: '#/definitions/teams.AddTeamParamsUser'
+        type: array
+      team_name:
+        type: string
+    type: object
+  teams.AddTeamParamsUser:
+    properties:
+      is_active:
+        type: boolean
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  teams.AddTeamResult:
+    properties:
+      team:
+        $ref: '#/definitions/teams.AddTeamResultTeam'
+    type: object
+  teams.AddTeamResultTeam:
+    properties:
+      members:
+        items:
+          $ref: '#/definitions/teams.AddTeamResultUser'
+        type: array
+      team_name:
+        type: string
+    type: object
+  teams.AddTeamResultUser:
+    properties:
+      is_active:
+        type: boolean
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  teams.GetTeamResult:
+    properties:
+      members:
+        items:
+          $ref: '#/definitions/teams.GetTeamResultUser'
+        type: array
+      team_name:
+        type: string
+    type: object
+  teams.GetTeamResultUser:
+    properties:
+      is_active:
+        type: boolean
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  users.GetReviewPRsResult:
+    properties:
+      pull_requests:
+        items:
+          $ref: '#/definitions/users.GetReviewPRsResultPR'
+        type: array
+      user_id:
+        type: string
+    type: object
+  users.GetReviewPRsResultPR:
+    properties:
+      author_id:
+        type: string
+      pull_request_id:
+        type: string
+      pull_request_name:
+        type: string
+      status:
+        type: string
+    type: object
+  users.SetIsActiveParams:
+    properties:
+      is_active:
+        type: boolean
+      user_id:
+        type: string
+    type: object
+  users.SetIsActiveResult:
+    properties:
+      user:
+        $ref: '#/definitions/users.SetIsActiveResultUser'
+    type: object
+  users.SetIsActiveResultUser:
+    properties:
+      is_active:
+        type: boolean
+      team_name:
+        type: string
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: 127.0.0.1:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: PR Reviewer Assignment Service (Test Task, Fall 2025)
+  version: "1.0"
+paths:
+  /health/livez:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Проверить, жив ли исключительно сам сервис,
+      tags:
+      - Health
+  /health/readyz:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Проверить, жив ли сам сервис + его зависимости (например, БД),
+      tags:
+      - Health
+  /pullRequest/create:
+    post:
+      parameters:
+      - description: pullrequests.CreatePRParams
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pullrequests.CreatePRParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pullrequests.CreatePRResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Создать PR и автоматически назначить до 2 ревьюверов из команды автора
+      tags:
+      - PullRequests
+  /pullRequest/merge:
+    post:
+      parameters:
+      - description: pullrequests.MergePRParams
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pullrequests.MergePRParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pullrequests.MergePRResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Пометить PR как MERGED (идемпотентная операция)
+      tags:
+      - PullRequests
+  /pullRequest/reassign:
+    post:
+      parameters:
+      - description: pullrequests.ReassignPRParams
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pullrequests.ReassignPRParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pullrequests.ReassignPRResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Переназначить конкретного ревьювера на другого из его команды
+      tags:
+      - PullRequests
+  /statistics/get:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/statistics.GetStatisticsResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Получить статистику по PR-ам
+      tags:
+      - Statistics
+  /team/add:
+    post:
+      parameters:
+      - description: teams.AddTeamParams
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/teams.AddTeamParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/teams.AddTeamResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Создать команду с участниками (создаёт/обновляет пользователей)
+      tags:
+      - Teams
+  /team/get:
+    get:
+      parameters:
+      - description: Уникальное имя команды
+        in: query
+        name: team_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/teams.GetTeamResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Получить команду с участниками
+      tags:
+      - Teams
+  /users/getReview:
+    get:
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.GetReviewPRsResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Получить PR'ы, где пользователь назначен ревьювером
+      tags:
+      - Users
+  /users/setIsActive:
+    post:
+      parameters:
+      - description: users.SetIsActiveParams
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/users.SetIsActiveParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.SetIsActiveResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ContractError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ContractError'
+      summary: Установить флаг активности пользователя
+      tags:
+      - Users
+swagger: "2.0"

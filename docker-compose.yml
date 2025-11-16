@@ -1,0 +1,46 @@
+name: pr-reviewer-assign-service-alexereh
+
+networks:
+  pr_reviewer:
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    ports:
+      - "5435:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 1s
+      timeout: 1s
+      retries: 5
+    environment:
+      LANG: C.UTF-8
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pr_reviewer
+    networks:
+      - pr_reviewer
+    command: >
+      sh -c "
+        docker-entrypoint.sh postgres &
+        sleep 10 &&
+        psql -U postgres -d pr_reviewer -c 'CREATE SCHEMA IF NOT EXISTS pr_reviewer;' &&
+        wait
+      "
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./etc/config:/app/cfg:ro
+    command:
+      - --config
+      - cfg/docker.yml
+    networks:
+      - pr_reviewer

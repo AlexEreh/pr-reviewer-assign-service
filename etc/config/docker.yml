@@ -1,0 +1,15 @@
+server:
+  host: 0.0.0.0
+  port: 8080
+log:
+  level: DEBUG
+  color: true
+  format: text
+database:
+  host: "postgres"
+  port: 5432
+  database: "pr_reviewer"
+  user: "postgres"
+  password: "postgres"
+  search_path: "pr_reviewer,public"
+  sslmode: "disable"

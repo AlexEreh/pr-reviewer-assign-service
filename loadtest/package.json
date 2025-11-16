@@ -1,0 +1,14 @@
+{
+  "name": "pr-reviewer-load-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "load-test": "k6 run k6/load_test.js",
+    "smoke-test": "k6 run k6/smoke_test.js",
+    "stress-test": "k6 run k6/stress_test.js",
+    "spike-test": "k6 run k6/spike_test.js",
+    "test-all": "npm run smoke-test && npm run load-test && npm run stress-test"
+  },
+  "devDependencies": {
+    "k6": "^0.0.0"
+  }
+}
